@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 /// Adds touch indicators to the screen whenever a touch occurs
 ///
@@ -74,6 +75,11 @@ class _TouchIndicatorState extends State<TouchIndicator> {
 
   @override
   Widget build(BuildContext context) {
+    final state = Provider.of<ValueNotifier<bool>>(context);
+    WidgetsBinding.instance.addPostFrameCallback((_) =>
+        touchPositions.values.length > 1
+            ? state.value = true
+            : state.value = false);
     if ((kReleaseMode && !widget.forceInReleaseMode) || !widget.enabled) {
       return widget.child;
     }

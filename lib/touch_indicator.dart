@@ -49,7 +49,7 @@ class _TouchIndicatorState extends State<TouchIndicator> {
 
   Iterable<Widget> buildTouchIndicators() sync* {
     if (touchPositions != null && touchPositions.isNotEmpty) {
-      for (var touchPosition in touchPositions.values) {
+      for (var touchPosition in touchPositions.values.take(2)) {
         yield Positioned.directional(
           start: touchPosition.dx - widget.indicatorSize / 2,
           top: touchPosition.dy - widget.indicatorSize / 2,

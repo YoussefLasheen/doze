@@ -9,8 +9,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ChangeNotifierProvider.value(
-        value: ValueNotifier<bool>(false),
+      home: ChangeNotifierProvider(
+        create: (_)=>ValueNotifier<bool>(false),
         child: MyHomePage(),
       ),
       theme: ThemeData.dark(),

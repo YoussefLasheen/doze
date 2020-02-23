@@ -3,6 +3,9 @@ import 'package:provider/provider.dart';
 
 import 'touch_indicator.dart';
 
+import 'package:flutter_screen/flutter_screen.dart';
+import 'dart:io';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -29,6 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final state = Provider.of<ValueNotifier<bool>>(context);
     indicatorSize = MediaQuery.of(context).size.width/4;
+    WidgetsBinding.instance.addPostFrameCallback((_) => state.value?(){FlutterScreen.setBrightness(0.0); FlutterScreen.keepOn(true);}():Platform.isAndroid?FlutterScreen.resetBrightness():FlutterScreen.setBrightness(0.5));
     return TouchIndicator(
       forceInReleaseMode: true,
       enabled: true,

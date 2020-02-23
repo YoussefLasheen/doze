@@ -37,8 +37,8 @@ class _MyHomePageState extends State<MyHomePage> {
         width:  indicatorSize,
         decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Color(0xFF121212),
-            border: Border.all(width: 2, color: Colors.lightBlueAccent)),
+            color: Colors.transparent,
+            border: Border.all(width: 5, color: Colors.lightBlueAccent)),
       ),
       indicatorSize: indicatorSize,
 

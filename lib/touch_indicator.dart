@@ -76,10 +76,14 @@ class _TouchIndicatorState extends State<TouchIndicator> {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<ValueNotifier<bool>>(context);
-    WidgetsBinding.instance.addPostFrameCallback((_) =>
-        touchPositions.values.length > 1
-            ? state.value = true
-            : state.value = false);
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => touchPositions.values.length < 2
+            ? state.value = false
+            : () async {
+                await Future.delayed(const Duration(seconds: 2), () {
+                  touchPositions.values.length >= 2 ? state.value = true : null;
+                });
+              }());
     if ((kReleaseMode && !widget.forceInReleaseMode) || !widget.enabled) {
       return widget.child;
     }

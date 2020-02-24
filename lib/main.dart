@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
       indicatorSize: indicatorSize,
 
       child: Material(
-        color: state.value?Colors.white:Color(0xFF121212),
+        color: Color(0xFF121212),
         child: Container(
           width: double.maxFinite,
           height: double.maxFinite,

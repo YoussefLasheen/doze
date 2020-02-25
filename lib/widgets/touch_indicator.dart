@@ -113,25 +113,28 @@ class _TouchIndicatorState extends State<TouchIndicator> {
         }
       case stateEnum.ON:
         {
-          return widget.child;
+          return WillPopScope(child: Container(), onWillPop: () async => false,);
         }
       case stateEnum.RING:
         {
-          return Material(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  "Wake up!",
-                  style: TextStyle(fontSize: 48),
-                ),
-                FlatButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      state.value = stateEnum.OFF;
-                    },
-                    child: Text("DISMISS"))
-              ],
+          return WillPopScope(
+            onWillPop: () async => false,
+            child: Material(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "Wake up!",
+                    style: TextStyle(fontSize: 48),
+                  ),
+                  FlatButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        state.value = stateEnum.OFF;
+                      },
+                      child: Text("DISMISS"))
+                ],
+              ),
             ),
           );
         }

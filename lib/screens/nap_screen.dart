@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 
 import '../models/state_enum.dart';
 
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
+
 class NapScreen extends StatelessWidget {
   const NapScreen({Key key}) : super(key: key);
 
@@ -14,14 +16,53 @@ class NapScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = Provider.of<ValueNotifier<stateEnum>>(context);
     final indicatorSize = MediaQuery.of(context).size.width / 4;
-    WidgetsBinding.instance.addPostFrameCallback((_) => state.value == stateEnum.ON
-        ? () {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      switch (state.value) {
+        case stateEnum.ON:
+          {
             FlutterScreen.setBrightness(0.0);
             FlutterScreen.keepOn(true);
-          }()
-        : Platform.isAndroid
-            ? FlutterScreen.resetBrightness()
-            : FlutterScreen.setBrightness(0.5));
+            break;
+          }
+        case stateEnum.LOADING:
+          {
+            break;
+          }
+        case stateEnum.RING:
+          {
+            FlutterRingtonePlayer.play(
+              android: AndroidSounds.alarm,
+              ios: IosSounds.alarm,
+              looping: false,
+              volume: 1.0,
+              asAlarm: true,
+            );
+            break;
+          }
+        case stateEnum.OFF:
+          {
+            Platform.isAndroid
+                ? FlutterScreen.resetBrightness()
+                : FlutterScreen.setBrightness(0.5);
+            break;
+          }
+      }
+    });
+
+    /*
+        state.value == stateEnum.ON
+            ? () {
+                FlutterScreen.setBrightness(0.0);
+                FlutterScreen.keepOn(true);
+              }()
+            : state.value == stateEnum.LOADING
+                ? null
+                : state.value == stateEnum.RING
+                    ? print("RINGING")
+                    : Platform.isAndroid
+                        ? FlutterScreen.resetBrightness()
+                        : FlutterScreen.setBrightness(0.5)
+                        */
     return TouchIndicator(
       enabled: true,
       indicator: Container(

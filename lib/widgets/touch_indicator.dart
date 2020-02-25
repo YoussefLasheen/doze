@@ -118,8 +118,8 @@ class _TouchIndicatorState extends State<TouchIndicator> {
       case stateEnum.RING:
         {
           return Material(
-            child: Center(
-                child: Column(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
                   "Wake up!",
@@ -130,9 +130,9 @@ class _TouchIndicatorState extends State<TouchIndicator> {
                       Navigator.pop(context);
                       state.value = stateEnum.OFF;
                     },
-                    child: Text("Press me"))
+                    child: Text("DISMISS"))
               ],
-            )),
+            ),
           );
         }
       case stateEnum.LOADING:

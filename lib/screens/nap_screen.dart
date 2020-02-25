@@ -5,14 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screen/flutter_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../models/state_enum.dart';
+
 class NapScreen extends StatelessWidget {
   const NapScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final state = Provider.of<ValueNotifier<bool>>(context);
+    final state = Provider.of<ValueNotifier<stateEnum>>(context);
     final indicatorSize = MediaQuery.of(context).size.width / 4;
-    WidgetsBinding.instance.addPostFrameCallback((_) => state.value
+    WidgetsBinding.instance.addPostFrameCallback((_) => state.value == stateEnum.ON
         ? () {
             FlutterScreen.setBrightness(0.0);
             FlutterScreen.keepOn(true);

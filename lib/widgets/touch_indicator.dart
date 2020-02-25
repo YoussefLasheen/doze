@@ -1,3 +1,4 @@
+import 'package:doze/models/state_enum.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -71,13 +72,13 @@ class _TouchIndicatorState extends State<TouchIndicator> {
 
   @override
   Widget build(BuildContext context) {
-    final state = Provider.of<ValueNotifier<bool>>(context);
+    final state = Provider.of<ValueNotifier<stateEnum>>(context);
     WidgetsBinding.instance
         .addPostFrameCallback((_) => touchPositions.values.length < 2
-            ? state.value = false
+            ? state.value = stateEnum.OFF
             : () async {
                 await Future.delayed(const Duration(seconds: 2), () {
-                  touchPositions.values.length >= 2 ? state.value = true : null;
+                  touchPositions.values.length >= 2 ? state.value = stateEnum.ON : null;
                 });
               }());
 

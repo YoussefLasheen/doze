@@ -75,9 +75,11 @@ class _TouchIndicatorState extends State<TouchIndicator> {
     final state = Provider.of<ValueNotifier<stateEnum>>(context);
     WidgetsBinding.instance.addPostFrameCallback((_) =>
         touchPositions.values.length < 2
-            ? state.value == stateEnum.ON
-                ? state.value = stateEnum.RING
-                : state.value = stateEnum.OFF
+            ? state.value == stateEnum.RING
+                ? null
+                : state.value == stateEnum.ON
+                    ? state.value = stateEnum.RING
+                    : state.value = stateEnum.OFF
             : () async {
                 await Future.delayed(const Duration(seconds: 2), () {
                   touchPositions.values.length >= 2
@@ -89,20 +91,54 @@ class _TouchIndicatorState extends State<TouchIndicator> {
     var children = [
       widget.child,
     ]..addAll(buildTouchIndicators());
-    return Listener(
-      onPointerDown: (opd) {
-        savePointerPosition(opd.pointer, opd.position);
-      },
-      onPointerMove: (opm) {
-        savePointerPosition(opm.pointer, opm.position);
-      },
-      onPointerCancel: (opc) {
-        clearPointerPosition(opc.pointer);
-      },
-      onPointerUp: (opc) {
-        clearPointerPosition(opc.pointer);
-      },
-      child: Stack(children: children),
-    );
+
+    switch (state.value) {
+      case stateEnum.OFF:
+        {
+          return Listener(
+            onPointerDown: (opd) {
+              savePointerPosition(opd.pointer, opd.position);
+            },
+            onPointerMove: (opm) {
+              savePointerPosition(opm.pointer, opm.position);
+            },
+            onPointerCancel: (opc) {
+              clearPointerPosition(opc.pointer);
+            },
+            onPointerUp: (opc) {
+              clearPointerPosition(opc.pointer);
+            },
+            child: Stack(children: children),
+          );
+        }
+      case stateEnum.ON:
+        {
+          return widget.child;
+        }
+      case stateEnum.RING:
+        {
+          return Material(
+            child: Center(
+                child: Column(
+              children: <Widget>[
+                Text(
+                  "Wake up!",
+                  style: TextStyle(fontSize: 48),
+                ),
+                FlatButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      state.value = stateEnum.OFF;
+                    },
+                    child: Text("Press me"))
+              ],
+            )),
+          );
+        }
+      case stateEnum.LOADING:
+        {
+          break;
+        }
+    }
   }
 }

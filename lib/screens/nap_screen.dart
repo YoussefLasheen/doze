@@ -37,10 +37,14 @@ class NapScreen extends StatelessWidget {
               volume: 1.0,
               asAlarm: true,
             );
+            Platform.isAndroid
+                ? FlutterScreen.resetBrightness()
+                : FlutterScreen.setBrightness(0.5);
             break;
           }
         case stateEnum.OFF:
           {
+            FlutterRingtonePlayer.stop();
             Platform.isAndroid
                 ? FlutterScreen.resetBrightness()
                 : FlutterScreen.setBrightness(0.5);

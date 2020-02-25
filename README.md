@@ -3,7 +3,9 @@ A smart napping app made with flutter
 
 ## Description
 ![enter image description here](https://www.corspro.com/wp-content/uploads/2016/07/placeholder-2.png)
+
 _![enter image description here](https://i0.wp.com/www.backpackpartners.com/wp-content/uploads/2015/11/phone-placeholder.jpg?fit=247,420)![enter image description here](https://i0.wp.com/www.backpackpartners.com/wp-content/uploads/2015/11/phone-placeholder.jpg?fit=247,420)
+
 Tired of waking up groggy after a long nap?_
 _Want to sleep as much as you can and easily wake up?_
 Then you should try doze. It wakes you up once you go unconscious.

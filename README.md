@@ -4,18 +4,18 @@ A smart napping app made with flutter
 ## Description
 ![enter image description here](https://www.corspro.com/wp-content/uploads/2016/07/placeholder-2.png)
 
-_![enter image description here](https://i0.wp.com/www.backpackpartners.com/wp-content/uploads/2015/11/phone-placeholder.jpg?fit=247,420)![enter image description here](https://i0.wp.com/www.backpackpartners.com/wp-content/uploads/2015/11/phone-placeholder.jpg?fit=247,420)
+![enter image description here](https://i0.wp.com/www.backpackpartners.com/wp-content/uploads/2015/11/phone-placeholder.jpg?fit=247,420)![enter image description here](https://i0.wp.com/www.backpackpartners.com/wp-content/uploads/2015/11/phone-placeholder.jpg?fit=247,420)
 
-Tired of waking up groggy after a long nap?_
-_Want to sleep as much as you can and easily wake up?_
+_Tired of waking up groggy after a long nap?_\n
+_Want to sleep as much as you can and easily wake up?_\n
 Then you should try doze. It wakes you up once you go unconscious.
 
-Doze is a smart app that uses your cellphone sensors to determine when to wake you up, To exactly get the right amount of sleep you need. It will wake you up right before you are about to enter deep sleep.
-**Simply, doze helps you get the right dose of sleep.**
+Doze is a smart app that uses your cellphone sensors to determine when to wake you up, To exactly get the right amount of sleep you need. It will wake you up right before you are about to enter deep sleep.\n
+**Simply, doze helps you get the right dose of sleep.**\n
 _Get rid of that groggy feeling and improve your overall well-being._
 
 
-**But how do we achieve this?**
+**But how do we achieve this?**\n
 This is achieved by the knowledge that muscles relax more and more the deeper you sleep. so if your fingers slip of the screen we know that you're getting into deep sleep, so it wakes you up.
 
 ### Getting started?

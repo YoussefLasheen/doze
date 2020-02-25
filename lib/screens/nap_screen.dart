@@ -21,7 +21,6 @@ class NapScreen extends StatelessWidget {
             ? FlutterScreen.resetBrightness()
             : FlutterScreen.setBrightness(0.5));
     return TouchIndicator(
-      forceInReleaseMode: true,
       enabled: true,
       indicator: Container(
         height: indicatorSize,

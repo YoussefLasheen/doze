@@ -22,9 +22,6 @@ class TouchIndicator extends StatefulWidget {
   /// Make sure to set the proper [indicatorSize] to align the widget properly
   final Widget indicator;
 
-  /// If set to true, shows indicators in release mode as well
-  final bool forceInReleaseMode;
-
   /// If set to false, disables the indicators from showing
   final bool enabled;
 
@@ -37,7 +34,6 @@ class TouchIndicator extends StatefulWidget {
     this.indicator,
     this.indicatorSize,
     this.indicatorColor = Colors.blueGrey,
-    this.forceInReleaseMode = false,
     this.enabled = true,
   }) : super(key: key);
 
@@ -84,9 +80,6 @@ class _TouchIndicatorState extends State<TouchIndicator> {
                   touchPositions.values.length >= 2 ? state.value = true : null;
                 });
               }());
-    if ((kReleaseMode && !widget.forceInReleaseMode) || !widget.enabled) {
-      return widget.child;
-    }
 
     var children = [
       widget.child,

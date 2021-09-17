@@ -67,7 +67,7 @@ class HelpButton extends StatelessWidget {
               "Have a quick nap without regrets.\nThis app prevents you from having a deep sleep and risk waking up groggy and have a headache.\nIt wakes you up once you go unconscious.\nThe app uses your phone's sensors and touch screen to know exactly when to wake you up.",
             ),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                   onPressed: () => Navigator.pop(context),
                   child: Text("Understood"))
             ],

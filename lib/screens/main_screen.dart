@@ -13,35 +13,41 @@ class MainScreen extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Center(
-            child: SizedBox.fromSize(
-              size: Size.square(MediaQuery.of(context).size.width / 2),
-              child: FloatingActionButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ChangeNotifierProvider(
-                          create: (_) =>
-                              ValueNotifier<stateEnum>(stateEnum.OFF),
-                          child: NapScreen()),
-                    ),
-                  );
-                },
-                backgroundColor: Colors.cyan,
-                child: Text(
-                  "Start your nap",
-                  style: TextStyle(
-                      fontSize: 48,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
+            child: CenterButton(),
           ),
           Align(
             alignment: Alignment.bottomRight,
             child: HelpButton(),
           )
         ],
+      ),
+    );
+  }
+}
+
+class CenterButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: BoxConstraints.tightFor(width: 200, height: 200),
+      child: ElevatedButton(
+        child: Text(
+          'Start your nap',
+          style: TextStyle(fontSize: 24),
+        ),
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => ChangeNotifierProvider(
+                  create: (_) =>
+                      ValueNotifier<stateEnum>(stateEnum.OFF),
+                  child: NapScreen()),
+            ),
+          );
+        },
+        style: ElevatedButton.styleFrom(
+          shape: CircleBorder(),
+        ),
       ),
     );
   }

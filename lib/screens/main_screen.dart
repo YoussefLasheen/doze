@@ -39,26 +39,35 @@ class MainScreen extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.bottomRight,
-            child: IconButton(
-                icon: Icon(Icons.help),
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (_) => new AlertDialog(
-                            title: new Text("Getting Started"),
-                            content: new Text(
-                              "Have a quick nap without regrets.\nThis app prevents you from having a deep sleep and risk waking up groggy and have a headache.\nIt wakes you up once you go unconscious.\nThe app uses your phone's sensors and touch screen to know exactly when to wake you up.",
-                            ),
-                            actions: <Widget>[
-                              FlatButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: Text("Understood"))
-                            ],
-                          ));
-                }),
+            child: HelpButton(),
           )
         ],
       ),
+    );
+  }
+}
+
+class HelpButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.help),
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (_) => new AlertDialog(
+            title: new Text("Getting Started"),
+            content: new Text(
+              "Have a quick nap without regrets.\nThis app prevents you from having a deep sleep and risk waking up groggy and have a headache.\nIt wakes you up once you go unconscious.\nThe app uses your phone's sensors and touch screen to know exactly when to wake you up.",
+            ),
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text("Understood"))
+            ],
+          ),
+        );
+      },
     );
   }
 }

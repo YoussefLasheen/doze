@@ -69,7 +69,7 @@ class ModeToggleButtons extends StatefulWidget {
 }
 
 class _ModeToggleButtonsState extends State<ModeToggleButtons> {
-  List<bool> isSelected = List.generate(2, (_) => false);
+  List<bool> isSelected = [false, true];
   bool isChecked = false;
 
   @override
@@ -102,13 +102,10 @@ class _ModeToggleButtonsState extends State<ModeToggleButtons> {
           child: FittedBox(
             child: ToggleButtons(
               borderRadius: BorderRadius.circular(50),
-              //renderBorder: false,
               fillColor: Colors.blue,
-              //color: Colors.white,
               selectedColor: Colors.white,
               borderColor: Colors.white,
-              disabledColor: Colors.orange,
-              focusColor: Colors.amberAccent,
+              selectedBorderColor: Colors.white,
               children: <Widget>[
                 ModeToggleButton("Proximity"),
                 ModeToggleButton("Touch"),

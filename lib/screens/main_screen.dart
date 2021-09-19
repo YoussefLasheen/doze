@@ -83,9 +83,8 @@ class _ModeToggleButtonsState extends State<ModeToggleButtons> {
           child: FittedBox(
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: isChecked?Colors.blue:Colors.grey,
+                primary: isChecked ? Colors.blue : Colors.grey,
                 shape: CircleBorder(),
-                
               ),
               child: Icon(Icons.calculate_outlined),
               onPressed: () {
@@ -96,7 +95,9 @@ class _ModeToggleButtonsState extends State<ModeToggleButtons> {
             ),
           ),
         ),
-        SizedBox(width: 10,),
+        SizedBox(
+          width: 10,
+        ),
         Expanded(
           flex: 2,
           child: FittedBox(

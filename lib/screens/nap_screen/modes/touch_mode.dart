@@ -3,32 +3,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-/// Adds touch indicators to the screen whenever a touch occurs
-///
-/// This can be useful when recording videos of an app where you want to show
-/// where the user has tapped. Can also be useful when running integration
-/// tests or when giving demos with a screencast.
 class TouchIndicator extends StatefulWidget {
-  /// The child on which to show indicators
   final Widget child;
 
-  /// The size of the indicator
   final double indicatorSize;
 
-  /// The color of the indicator
   final Color indicatorColor;
 
-  /// Overrides the default indicator.
-  ///
-  /// Make sure to set the proper [indicatorSize] to align the widget properly
   final Widget indicator;
 
-  /// If set to false, disables the indicators from showing
   final bool enabled;
 
-  /// Creates a touch indicator canvas
-  ///
-  /// Touch indicators are shown on the child whenever a touch occurs
   const TouchIndicator({
     Key key,
     @required this.child,
@@ -73,8 +58,8 @@ class _TouchIndicatorState extends State<TouchIndicator> {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<ValueNotifier<stateEnum>>(context);
-    WidgetsBinding.instance.addPostFrameCallback((_) =>
-        touchPositions.values.length < 2
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => touchPositions.values.length < 2
             ? state.value == stateEnum.RING
                 ? null
                 : state.value == stateEnum.ON
@@ -114,13 +99,22 @@ class _TouchIndicatorState extends State<TouchIndicator> {
                   child: Stack(children: children),
                 ),
               ),
-              Material(child: Align(alignment: Alignment.bottomCenter,child: Text('Touch Mode \nPut your hand on screen with 2 fingers (for >2 seconds) \nto activate the alarm'))),
+              Material(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                      'Touch Mode \nPut your hand on screen with 2 fingers (for >2 seconds) \nto activate the alarm'),
+                ),
+              ),
             ],
           );
         }
       case stateEnum.ON:
         {
-          return WillPopScope(child: Container(), onWillPop: () async => false,);
+          return WillPopScope(
+            child: Container(),
+            onWillPop: () async => false,
+          );
         }
       case stateEnum.RING:
         {

@@ -5,14 +5,11 @@ import 'package:provider/provider.dart';
 import 'dart:async';
 import 'package:proximity_sensor/proximity_sensor.dart';
 
-
-////////////////////////////////////////////////////////////////////////////////
 class ProximityIndicator extends StatefulWidget {
   @override
   _ProximityIndicatorState createState() => _ProximityIndicatorState();
 }
 
-////////////////////////////////////////////////////////////////////////////////
 class _ProximityIndicatorState extends State<ProximityIndicator> {
   bool _isNear = false;
   StreamSubscription<dynamic> _streamSubscription;
@@ -45,28 +42,33 @@ class _ProximityIndicatorState extends State<ProximityIndicator> {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<ValueNotifier<stateEnum>>(context);
-    WidgetsBinding.instance.addPostFrameCallback((_) =>
-        !_isNear
-            ? state.value == stateEnum.RING
-                ? null
-                : state.value == stateEnum.ON
-                    ? state.value = stateEnum.RING
-                    : state.value = stateEnum.OFF
-            : () async {
-                await Future.delayed(const Duration(seconds: 2), () {
-                  _isNear
-                      ? state.value = stateEnum.ON
-                      : null;
-                });
-              }());
+    WidgetsBinding.instance.addPostFrameCallback((_) => !_isNear
+        ? state.value == stateEnum.RING
+            ? null
+            : state.value == stateEnum.ON
+                ? state.value = stateEnum.RING
+                : state.value = stateEnum.OFF
+        : () async {
+            await Future.delayed(const Duration(seconds: 2), () {
+              _isNear ? state.value = stateEnum.ON : null;
+            });
+          }());
     switch (state.value) {
       case stateEnum.OFF:
         {
-          return Material(child: Align(alignment: Alignment.bottomCenter,child: Text('Proximity Censor Mode \nPut your hand on the sensor (for >2 seconds) \nto activate the alarm')),);
+          return Material(
+            child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                    'Proximity Censor Mode \nPut your hand on the sensor (for >2 seconds) \nto activate the alarm')),
+          );
         }
       case stateEnum.ON:
         {
-          return WillPopScope(child: Container(), onWillPop: () async => false,);
+          return WillPopScope(
+            child: Container(),
+            onWillPop: () async => false,
+          );
         }
       case stateEnum.RING:
         {

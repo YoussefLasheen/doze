@@ -55,22 +55,7 @@ class NapScreen extends StatelessWidget {
           }
       }
     });
-
-    /*
-        state.value == stateEnum.ON
-            ? () {
-                FlutterScreen.setBrightness(0.0);
-                FlutterScreen.keepOn(true);
-              }()
-            : state.value == stateEnum.LOADING
-                ? null
-                : state.value == stateEnum.RING
-                    ? print("RINGING")
-                    : Platform.isAndroid
-                        ? FlutterScreen.resetBrightness()
-                        : FlutterScreen.setBrightness(0.5)
-                        */
-    switch (settings.value ) {
+    switch (settings.value) {
       case napModeEnum.Proximity:
         {
           return ProximityIndicator();

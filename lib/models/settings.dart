@@ -1,4 +1,1 @@
-enum napModeEnum{
-  Proximity,
-  Touch
-}
+enum napModeEnum { Proximity, Touch }

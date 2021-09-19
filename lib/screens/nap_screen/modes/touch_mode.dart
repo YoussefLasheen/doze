@@ -1,5 +1,6 @@
 import 'package:doze/models/state_enum.dart';
 import 'package:doze/screens/nap_screen/modes/widgets/alarm_screen.dart';
+import 'package:doze/screens/nap_screen/widgets/help_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -81,33 +82,36 @@ class _TouchIndicatorState extends State<TouchIndicator> {
     switch (state.value) {
       case stateEnum.OFF:
         {
-          return Column(
-            children: [
-              Expanded(
-                child: Listener(
-                  onPointerDown: (opd) {
-                    savePointerPosition(opd.pointer, opd.position);
-                  },
-                  onPointerMove: (opm) {
-                    savePointerPosition(opm.pointer, opm.position);
-                  },
-                  onPointerCancel: (opc) {
-                    clearPointerPosition(opc.pointer);
-                  },
-                  onPointerUp: (opc) {
-                    clearPointerPosition(opc.pointer);
-                  },
-                  child: Stack(children: children),
+          return Material(
+            child: Column(
+              children: [
+                Expanded(
+                  child: Listener(
+                    onPointerDown: (opd) {
+                      savePointerPosition(opd.pointer, opd.position);
+                    },
+                    onPointerMove: (opm) {
+                      savePointerPosition(opm.pointer, opm.position);
+                    },
+                    onPointerCancel: (opc) {
+                      clearPointerPosition(opc.pointer);
+                    },
+                    onPointerUp: (opc) {
+                      clearPointerPosition(opc.pointer);
+                    },
+                    child: Stack(children: children),
+                  ),
                 ),
-              ),
-              Material(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text(
-                      'Touch Mode \nPut your hand on screen with 2 fingers (for >2 seconds) \nto activate the alarm'),
-                ),
-              ),
-            ],
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: HelpButton(
+                    title: 'Touch Mode',
+                    desc:
+                        'Put your hand on screen with 2 fingers (for >2 seconds) \nto activate the alarm',
+                  ),
+                )
+              ],
+            ),
           );
         }
       case stateEnum.ON:
@@ -120,9 +124,7 @@ class _TouchIndicatorState extends State<TouchIndicator> {
       case stateEnum.RING:
         {
           return WillPopScope(
-            onWillPop: () async => false,
-            child: AlarmScreen()
-          );
+              onWillPop: () async => false, child: AlarmScreen());
         }
       case stateEnum.LOADING:
         {

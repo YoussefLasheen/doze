@@ -1,5 +1,6 @@
 import 'package:doze/models/state_enum.dart';
 import 'package:doze/screens/nap_screen/modes/widgets/alarm_screen.dart';
+import 'package:doze/screens/nap_screen/widgets/help_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:provider/provider.dart';
@@ -59,9 +60,13 @@ class _ProximityIndicatorState extends State<ProximityIndicator> {
         {
           return Material(
             child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Text(
-                    'Proximity Censor Mode \nPut your hand on the sensor (for >2 seconds) \nto activate the alarm')),
+                  alignment: Alignment.bottomRight,
+                  child: HelpButton(
+                    title: 'Proximity Censor Mode ',
+                    desc:
+                        'Put your hand on the sensor (for >2 seconds) \nto activate the alarm',
+                  ),
+                )
           );
         }
       case stateEnum.ON:

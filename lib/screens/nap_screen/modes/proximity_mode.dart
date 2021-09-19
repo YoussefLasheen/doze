@@ -1,6 +1,6 @@
 import 'package:doze/models/state_enum.dart';
 import 'package:doze/screens/nap_screen/modes/widgets/alarm_screen.dart';
-import 'package:doze/screens/nap_screen/widgets/help_button.dart';
+import 'package:doze/screens/widgets/help_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:provider/provider.dart';

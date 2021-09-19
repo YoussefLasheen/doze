@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 
 class HelpButton extends StatelessWidget {
@@ -10,7 +11,7 @@ class HelpButton extends StatelessWidget {
     return IconButton(
       icon: Icon(Icons.help),
       onPressed: () {
-        showDialog(
+        showModal(
           context: context,
           builder: (_) => new AlertDialog(
             title: new Text(title),

@@ -1,4 +1,5 @@
 import 'package:doze/models/state_enum.dart';
+import 'package:doze/screens/nap_screen/modes/widgets/alarm_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:provider/provider.dart';
@@ -74,23 +75,7 @@ class _ProximityIndicatorState extends State<ProximityIndicator> {
         {
           return WillPopScope(
             onWillPop: () async => false,
-            child: Material(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Wake up!",
-                    style: TextStyle(fontSize: 48),
-                  ),
-                  FlatButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        state.value = stateEnum.OFF;
-                      },
-                      child: Text("DISMISS"))
-                ],
-              ),
-            ),
+            child: AlarmScreen()
           );
         }
       case stateEnum.LOADING:

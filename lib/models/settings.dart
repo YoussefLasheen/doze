@@ -1,0 +1,4 @@
+enum napModeEnum{
+  Proximity,
+  Touch
+}

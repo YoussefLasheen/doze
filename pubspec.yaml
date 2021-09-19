@@ -21,6 +21,7 @@ dependencies:
   flutter_screen: ^0.0.2
   flutter_ringtone_player: ^2.0.0
   proximity_sensor: ^1.0.2
+  animations: ^2.0.1
   flutter:
     sdk: flutter
 

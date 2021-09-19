@@ -95,20 +95,27 @@ class _TouchIndicatorState extends State<TouchIndicator> {
     switch (state.value) {
       case stateEnum.OFF:
         {
-          return Listener(
-            onPointerDown: (opd) {
-              savePointerPosition(opd.pointer, opd.position);
-            },
-            onPointerMove: (opm) {
-              savePointerPosition(opm.pointer, opm.position);
-            },
-            onPointerCancel: (opc) {
-              clearPointerPosition(opc.pointer);
-            },
-            onPointerUp: (opc) {
-              clearPointerPosition(opc.pointer);
-            },
-            child: Stack(children: children),
+          return Column(
+            children: [
+              Expanded(
+                child: Listener(
+                  onPointerDown: (opd) {
+                    savePointerPosition(opd.pointer, opd.position);
+                  },
+                  onPointerMove: (opm) {
+                    savePointerPosition(opm.pointer, opm.position);
+                  },
+                  onPointerCancel: (opc) {
+                    clearPointerPosition(opc.pointer);
+                  },
+                  onPointerUp: (opc) {
+                    clearPointerPosition(opc.pointer);
+                  },
+                  child: Stack(children: children),
+                ),
+              ),
+              Material(child: Align(alignment: Alignment.bottomCenter,child: Text('Proximity Censor Mode \nPut your hand on the sensor (for >2 seconds) \nto activate the alarm'))),
+            ],
           );
         }
       case stateEnum.ON:

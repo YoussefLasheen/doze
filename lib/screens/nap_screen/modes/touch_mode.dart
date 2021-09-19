@@ -114,7 +114,7 @@ class _TouchIndicatorState extends State<TouchIndicator> {
                   child: Stack(children: children),
                 ),
               ),
-              Material(child: Align(alignment: Alignment.bottomCenter,child: Text('Proximity Censor Mode \nPut your hand on the sensor (for >2 seconds) \nto activate the alarm'))),
+              Material(child: Align(alignment: Alignment.bottomCenter,child: Text('Touch Mode \nPut your hand on screen with 2 fingers (for >2 seconds) \nto activate the alarm'))),
             ],
           );
         }

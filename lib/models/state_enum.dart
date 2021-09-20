@@ -1,1 +1,1 @@
-enum stateEnum { OFF, ON, LOADING, RING }
+enum stateEnum { OFF, ON, RING }

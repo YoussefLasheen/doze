@@ -18,7 +18,7 @@ class NapScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<ValueNotifier<stateEnum>>(context);
-    final settings = Provider.of<ValueNotifier<Settings>>(context);
+    final settings = Provider.of<ValueNotifier<Settings>>(context, listen: false);
     final indicatorSize = MediaQuery.of(context).size.width / 4;
     
     if (state.value == stateEnum.ON) {

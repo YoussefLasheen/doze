@@ -1,8 +1,8 @@
 import 'package:doze/models/settings.dart';
+import 'package:doze/screens/main_screen/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'screens/main_screen.dart';
 
 void main() => runApp(MyApp());
 

@@ -1,11 +1,11 @@
 import 'package:animations/animations.dart';
 import 'package:doze/models/settings.dart';
+import 'package:doze/models/state_enum.dart';
 import 'package:doze/screens/nap_screen/nap_screen.dart';
+import 'package:doze/screens/widgets/help_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/state_enum.dart';
-import 'widgets/help_button.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key key}) : super(key: key);

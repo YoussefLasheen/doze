@@ -13,14 +13,42 @@ import '../../models/state_enum.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 
 class NapScreen extends StatelessWidget {
-  const NapScreen({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<ValueNotifier<stateEnum>>(context);
-    final settings = Provider.of<ValueNotifier<Settings>>(context, listen: false);
-    final indicatorSize = MediaQuery.of(context).size.width / 4;
-    
+
+    Widget preferedMode() {
+      final settings =
+          Provider.of<ValueNotifier<Settings>>(context, listen: false);
+      switch (settings.value.mode) {
+        case napModeEnum.Proximity:
+          return ProximityIndicator();
+
+        case napModeEnum.Touch:
+          {
+            final _indicatorSize = MediaQuery.of(context).size.width / 4;
+            return TouchIndicator(
+              enabled: true,
+              indicator: Container(
+                height: _indicatorSize,
+                width: _indicatorSize,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.transparent,
+                    border: Border.all(width: 5, color: Colors.cyan)),
+              ),
+              indicatorSize: _indicatorSize,
+              child: Material(
+                child: Container(
+                  width: double.maxFinite,
+                  height: double.maxFinite,
+                ),
+              ),
+            );
+          }
+      }
+    }
+
     if (state.value == stateEnum.ON) {
       FlutterScreen.setBrightness(0.0);
       FlutterScreen.keepOn(true);
@@ -28,63 +56,33 @@ class NapScreen extends StatelessWidget {
 
     switch (state.value) {
       case stateEnum.RING:
-        {
-          FlutterRingtonePlayer.play(
-            android: AndroidSounds.alarm,
-            ios: IosSounds.alarm,
-            looping: false,
-            volume: 1.0,
-            asAlarm: true,
-          );
-          Platform.isAndroid
-              ? FlutterScreen.resetBrightness()
-              : FlutterScreen.setBrightness(0.5);
-          return AlarmScreen();
-        }
+        ring();
+        return AlarmScreen();
+
       case stateEnum.ON:
       case stateEnum.OFF:
-        {
-          FlutterRingtonePlayer.stop();
-          Platform.isAndroid
-              ? FlutterScreen.resetBrightness()
-              : FlutterScreen.setBrightness(0.5);
-          switch (settings.value.mode) {
-            case napModeEnum.Proximity:
-              {
-                return ProximityIndicator();
-              }
-              break;
-
-            case napModeEnum.Touch:
-              {
-                return TouchIndicator(
-                  enabled: true,
-                  indicator: Container(
-                    height: indicatorSize,
-                    width: indicatorSize,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.transparent,
-                        border: Border.all(width: 5, color: Colors.cyan)),
-                  ),
-                  indicatorSize: indicatorSize,
-                  child: Material(
-                    child: Container(
-                      width: double.maxFinite,
-                      height: double.maxFinite,
-                    ),
-                  ),
-                );
-              }
-              break;
-
-            default:
-              {
-                print("Invalid choice");
-              }
-              break;
-          }
-        }
+        stopRing();
+        return preferedMode();
     }
+  }
+
+  void ring() {
+    FlutterRingtonePlayer.play(
+      android: AndroidSounds.alarm,
+      ios: IosSounds.alarm,
+      looping: false,
+      volume: 1.0,
+      asAlarm: true,
+    );
+    Platform.isAndroid
+        ? FlutterScreen.resetBrightness()
+        : FlutterScreen.setBrightness(0.5);
+  }
+
+  void stopRing() {
+    FlutterRingtonePlayer.stop();
+    Platform.isAndroid
+        ? FlutterScreen.resetBrightness()
+        : FlutterScreen.setBrightness(0.5);
   }
 }

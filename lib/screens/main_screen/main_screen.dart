@@ -4,7 +4,6 @@ import 'package:doze/screens/widgets/help_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 class MainScreen extends StatelessWidget {
   const MainScreen({Key key}) : super(key: key);
 
@@ -27,14 +26,17 @@ class MainScreen extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.bottomRight,
-            child: HelpButton(title:"Getting Started",desc: "Have a quick nap without regrets.\nThis app prevents you from having a deep sleep and risk waking up groggy and have a headache.\nIt wakes you up once you go unconscious.\nThe app uses your phone's sensors and touch screen to know exactly when to wake you up.",),
+            child: HelpButton(
+              title: "Getting Started",
+              desc:
+                  "Have a quick nap without regrets.\nThis app prevents you from having a deep sleep and risk waking up groggy and have a headache.\nIt wakes you up once you go unconscious.\nThe app uses your phone's sensors and touch screen to know exactly when to wake you up.",
+            ),
           )
         ],
       ),
     );
   }
 }
-
 
 class ModeToggleButtons extends StatefulWidget {
   @override
@@ -131,5 +133,3 @@ class ModeToggleButton extends StatelessWidget {
     );
   }
 }
-
-

@@ -55,38 +55,15 @@ class _ProximityIndicatorState extends State<ProximityIndicator> {
               _isNear ? state.value = stateEnum.ON : null;
             });
           }());
-    switch (state.value) {
-      case stateEnum.OFF:
-        {
-          return Material(
-            child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: HelpButton(
-                    title: 'Proximity Censor Mode ',
-                    desc:
-                        'Put your hand on the sensor (for >2 seconds) \nto activate the alarm',
-                  ),
-                )
-          );
-        }
-      case stateEnum.ON:
-        {
-          return WillPopScope(
-            child: Container(),
-            onWillPop: () async => false,
-          );
-        }
-      case stateEnum.RING:
-        {
-          return WillPopScope(
-            onWillPop: () async => false,
-            child: AlarmScreen()
-          );
-        }
-      case stateEnum.LOADING:
-        {
-          break;
-        }
-    }
+
+    return Material(
+        child: Align(
+      alignment: Alignment.bottomRight,
+      child: HelpButton(
+        title: 'Proximity Censor Mode ',
+        desc:
+            'Put your hand on the sensor (for >2 seconds) \nto activate the alarm',
+      ),
+    ));
   }
 }

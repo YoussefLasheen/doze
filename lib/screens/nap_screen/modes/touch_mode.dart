@@ -1,5 +1,4 @@
 import 'package:doze/models/state_enum.dart';
-import 'package:doze/screens/nap_screen/modes/widgets/alarm_screen.dart';
 import 'package:doze/screens/widgets/help_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -78,58 +77,37 @@ class _TouchIndicatorState extends State<TouchIndicator> {
     var children = [
       widget.child,
     ]..addAll(buildTouchIndicators());
-
-    switch (state.value) {
-      case stateEnum.OFF:
-        {
-          return Material(
-            child: Column(
-              children: [
-                Expanded(
-                  child: Listener(
-                    onPointerDown: (opd) {
-                      savePointerPosition(opd.pointer, opd.position);
-                    },
-                    onPointerMove: (opm) {
-                      savePointerPosition(opm.pointer, opm.position);
-                    },
-                    onPointerCancel: (opc) {
-                      clearPointerPosition(opc.pointer);
-                    },
-                    onPointerUp: (opc) {
-                      clearPointerPosition(opc.pointer);
-                    },
-                    child: Stack(children: children),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: HelpButton(
-                    title: 'Touch Mode',
-                    desc:
-                        'Put your hand on screen with 2 fingers (for >2 seconds) \nto activate the alarm',
-                  ),
-                )
-              ],
+    
+    return Material(
+      child: Column(
+        children: [
+          Expanded(
+            child: Listener(
+              onPointerDown: (opd) {
+                savePointerPosition(opd.pointer, opd.position);
+              },
+              onPointerMove: (opm) {
+                savePointerPosition(opm.pointer, opm.position);
+              },
+              onPointerCancel: (opc) {
+                clearPointerPosition(opc.pointer);
+              },
+              onPointerUp: (opc) {
+                clearPointerPosition(opc.pointer);
+              },
+              child: Stack(children: children),
             ),
-          );
-        }
-      case stateEnum.ON:
-        {
-          return WillPopScope(
-            child: Container(),
-            onWillPop: () async => false,
-          );
-        }
-      case stateEnum.RING:
-        {
-          return WillPopScope(
-              onWillPop: () async => false, child: AlarmScreen());
-        }
-      case stateEnum.LOADING:
-        {
-          break;
-        }
-    }
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: HelpButton(
+              title: 'Touch Mode',
+              desc:
+                  'Put your hand on screen with 2 fingers (for >2 seconds) \nto activate the alarm',
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

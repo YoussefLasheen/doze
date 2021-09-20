@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => ValueNotifier<napModeEnum>(napModeEnum.Touch),
+      create: (_) => ValueNotifier<Settings>(Settings(mode: napModeEnum.Touch,timeInSec: 5)),
       child: MaterialApp(
         home: MainScreen(),
         theme: ThemeData.dark(),

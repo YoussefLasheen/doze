@@ -17,7 +17,7 @@ class NapScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<ValueNotifier<stateEnum>>(context);
-    final settings = Provider.of<ValueNotifier<napModeEnum>>(context);
+    final settings = Provider.of<ValueNotifier<Settings>>(context);
     final indicatorSize = MediaQuery.of(context).size.width / 4;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       switch (state.value) {
@@ -55,7 +55,7 @@ class NapScreen extends StatelessWidget {
           }
       }
     });
-    switch (settings.value) {
+    switch (settings.value.mode) {
       case napModeEnum.Proximity:
         {
           return ProximityIndicator();

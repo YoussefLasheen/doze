@@ -13,7 +13,7 @@ class _ModeToggleButtonsState extends State<ModeToggleButtons> {
 
   @override
   Widget build(BuildContext context) {
-    final settings = Provider.of<ValueNotifier<napModeEnum>>(context);
+    final settings = Provider.of<ValueNotifier<Settings>>(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -53,7 +53,7 @@ class _ModeToggleButtonsState extends State<ModeToggleButtons> {
               onPressed: (int index) {
                 setState(
                   () {
-                    settings.value = napModeEnum.values[index];
+                    settings.value = Settings(mode:napModeEnum.values[index]);
                     for (int buttonIndex = 0;
                         buttonIndex < isSelected.length;
                         buttonIndex++) {

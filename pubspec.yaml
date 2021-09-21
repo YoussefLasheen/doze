@@ -17,7 +17,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  provider: ^4.0.4
+  provider: ^6.0.0
   flutter_screen: ^0.0.2
   flutter_ringtone_player: ^2.0.0
   proximity_sensor: ^1.0.2

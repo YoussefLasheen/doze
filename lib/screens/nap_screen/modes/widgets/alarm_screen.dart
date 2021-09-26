@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:doze/models/state_enum.dart';
+import 'package:doze/models/state.dart';
 import 'package:provider/provider.dart';
 
 
@@ -10,7 +10,7 @@ class AlarmScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = Provider.of<ValueNotifier<stateEnum>>(context);
+    final _state = Provider.of<ValueNotifier<state>>(context);
     return Material(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -22,7 +22,7 @@ class AlarmScreen extends StatelessWidget {
           FlatButton(
               onPressed: () {
                 Navigator.pop(context);
-                state.value = stateEnum.OFF;
+                _state.value = state(alarmStarted: false,timerStarted: false);
               },
               child: Text("DISMISS"))
         ],

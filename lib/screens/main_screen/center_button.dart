@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
-import 'package:doze/models/state_enum.dart';
+import 'package:doze/models/settings.dart';
+import 'package:doze/models/state.dart';
 import 'package:doze/screens/nap_screen/nap_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +30,7 @@ class _CenterButtonState extends State<CenterButton> {
 
   @override
   Widget build(BuildContext context) {
+    final settings = Provider.of<ValueNotifier<Settings>>(context,listen: false);
     return OpenContainer(
       closedColor: Colors.blue,
       openColor: Colors.transparent,
@@ -52,6 +54,7 @@ class _CenterButtonState extends State<CenterButton> {
                         updating = false;
                       });
                     });
+                    settings.value.timeInSec =timeInSec;
                   },
                   behavior: HitTestBehavior.translucent,
                   child: InkWell(
@@ -94,7 +97,7 @@ class _CenterButtonState extends State<CenterButton> {
       },
       openBuilder: (context, action) {
         return ChangeNotifierProvider(
-            create: (_) => ValueNotifier<stateEnum>(stateEnum.OFF),
+            create: (_) => ValueNotifier<state>(state(alarmStarted: false,timerStarted: false)),
             child: NapScreen());
       },
     );

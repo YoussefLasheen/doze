@@ -8,26 +8,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screen/flutter_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/state_enum.dart';
+import '../../models/state.dart';
 
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 
 class NapScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final state = Provider.of<ValueNotifier<stateEnum>>(context);
+    final _state = Provider.of<ValueNotifier<state>>(context);
 
     Widget preferedMode() {
       final settings =
           Provider.of<ValueNotifier<Settings>>(context, listen: false);
       switch (settings.value.mode) {
         case napModeEnum.Proximity:
-          return ProximityIndicator();
+          return ProximityIndicator(timeInSeconds: settings.value.timeInSec,);
 
         case napModeEnum.Touch:
           {
             final _indicatorSize = MediaQuery.of(context).size.width / 4;
             return TouchIndicator(
+              timeInSeconds: settings.value.timeInSec,
               enabled: true,
               indicator: Container(
                 height: _indicatorSize,
@@ -49,20 +50,17 @@ class NapScreen extends StatelessWidget {
       }
     }
 
-    if (state.value == stateEnum.ON) {
-      FlutterScreen.setBrightness(0.0);
-      FlutterScreen.keepOn(true);
+    if(!_state.value.alarmStarted){
+      stopRing();
     }
-
-    switch (state.value) {
-      case stateEnum.RING:
-        ring();
+    if (_state.value.alarmStarted == true) {
+      ring();
         return AlarmScreen();
 
-      case stateEnum.ON:
-      case stateEnum.OFF:
-        stopRing();
+    }else{
+      stopRing();
         return preferedMode();
+
     }
   }
 

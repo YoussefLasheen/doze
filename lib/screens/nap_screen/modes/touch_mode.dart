@@ -1,4 +1,4 @@
-import 'package:doze/models/state_enum.dart';
+import 'package:doze/models/state.dart';
 import 'package:doze/screens/widgets/help_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -56,28 +56,33 @@ class _TouchIndicatorState extends State<TouchIndicator> {
     });
   }
 
+  int noOfFingers = 0;
+
+
   @override
   Widget build(BuildContext context) {
-    final state = Provider.of<ValueNotifier<stateEnum>>(context);
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => touchPositions.values.length < 2
-            ? state.value == stateEnum.RING
-                ? null
-                : state.value == stateEnum.ON
-                    ? state.value = stateEnum.RING
-                    : state.value = stateEnum.OFF
-            : () async {
-                await Future.delayed(const Duration(seconds: 2), () {
-                  touchPositions.values.length >= 2
-                      ? state.value = stateEnum.ON
-                      : null;
-                });
-              }());
+    final astate = Provider.of<ValueNotifier<state>>(context);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      bool twoFingers = touchPositions.values.length >= 2;
+      if(noOfFingers!=touchPositions.values.length){
+        noOfFingers = touchPositions.values.length;
+      if (!twoFingers) {
+        if (!astate.value.alarmStarted) {
+          if (astate.value.timerStarted) {
+            astate.value = state(alarmStarted: true, timerStarted: false);
+          } else {
+            astate.value = state(timerStarted: false, alarmStarted: false);
+          }
+        }
+      } else {
+        astate.value = state(timerStarted: true, alarmStarted: false);
+      }
+    }});
 
     var children = [
       widget.child,
     ]..addAll(buildTouchIndicators());
-    
+
     return Material(
       child: Column(
         children: [

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:doze/models/state.dart';
 import 'package:doze/screens/widgets/help_button.dart';
 import 'package:flutter/foundation.dart';
@@ -5,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TouchIndicator extends StatefulWidget {
+  final int timeInSeconds;
+
   final Widget child;
 
   final double indicatorSize;
@@ -22,6 +26,7 @@ class TouchIndicator extends StatefulWidget {
     this.indicatorSize,
     this.indicatorColor = Colors.blueGrey,
     this.enabled = true,
+    this.timeInSeconds,
   }) : super(key: key);
 
   @override
@@ -58,26 +63,52 @@ class _TouchIndicatorState extends State<TouchIndicator> {
 
   int noOfFingers = 0;
 
+  Timer _timer;
+
+  void startTimer(duration, function) {
+    int _start = duration;
+    _timer = new Timer.periodic(
+      const Duration(seconds: 1),
+      (Timer timer) {
+        if (_start == 0) {
+          timer.cancel();
+          function();
+        } else {
+          _start--;
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final astate = Provider.of<ValueNotifier<state>>(context);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       bool twoFingers = touchPositions.values.length >= 2;
-      if(noOfFingers!=touchPositions.values.length){
+      if (noOfFingers != touchPositions.values.length) {
         noOfFingers = touchPositions.values.length;
-      if (!twoFingers) {
-        if (!astate.value.alarmStarted) {
-          if (astate.value.timerStarted) {
-            astate.value = state(alarmStarted: true, timerStarted: false);
-          } else {
-            astate.value = state(timerStarted: false, alarmStarted: false);
+        if (!twoFingers) {
+          if (!astate.value.alarmStarted) {
+            if (astate.value.timerStarted) {
+              astate.value = state(alarmStarted: true, timerStarted: false);
+            } else {
+              astate.value = state(timerStarted: false, alarmStarted: false);
+            }
           }
+        } else {
+          astate.value = state(timerStarted: true, alarmStarted: false);
+          startTimer(widget.timeInSeconds, () {
+            astate.value = state(timerStarted: false, alarmStarted: true);
+          });
         }
-      } else {
-        astate.value = state(timerStarted: true, alarmStarted: false);
       }
-    }});
+    });
 
     var children = [
       widget.child,

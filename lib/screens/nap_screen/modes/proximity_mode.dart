@@ -1,4 +1,4 @@
-import 'package:doze/models/state_enum.dart';
+import 'package:doze/models/state.dart';
 import 'package:doze/screens/nap_screen/modes/widgets/alarm_screen.dart';
 import 'package:doze/screens/widgets/help_button.dart';
 import 'package:flutter/material.dart';
@@ -8,12 +8,16 @@ import 'dart:async';
 import 'package:proximity_sensor/proximity_sensor.dart';
 
 class ProximityIndicator extends StatefulWidget {
+  final int timeInSeconds;
+
+  const ProximityIndicator({Key key, this.timeInSeconds}) : super(key: key);
   @override
   _ProximityIndicatorState createState() => _ProximityIndicatorState();
 }
 
 class _ProximityIndicatorState extends State<ProximityIndicator> {
   bool _isNear = false;
+  bool lastProxState;
   StreamSubscription<dynamic> _streamSubscription;
 
   @override
@@ -26,6 +30,7 @@ class _ProximityIndicatorState extends State<ProximityIndicator> {
   void dispose() {
     super.dispose();
     _streamSubscription.cancel();
+    _timer.cancel();
   }
 
   Future<void> listenSensor() async {
@@ -41,21 +46,43 @@ class _ProximityIndicatorState extends State<ProximityIndicator> {
     });
   }
 
+   Timer _timer;
+  
+  void startTimer(duration, function) {
+    int _start = duration;
+    _timer = new Timer.periodic(
+      const Duration(seconds: 1),
+      (Timer timer) {
+        if (_start == 0) {
+            timer.cancel();
+            function();
+        } else {
+            _start--;
+        }
+      },
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    final state = Provider.of<ValueNotifier<stateEnum>>(context);
-    WidgetsBinding.instance.addPostFrameCallback((_) => !_isNear
-        ? state.value == stateEnum.RING
-            ? null
-            : state.value == stateEnum.ON
-                ? state.value = stateEnum.RING
-                : state.value = stateEnum.OFF
-        : () async {
-            await Future.delayed(const Duration(seconds: 2), () {
-              _isNear ? state.value = stateEnum.ON : null;
-            });
-          }());
-
+    final astate = Provider.of<ValueNotifier<state>>(context);
+   WidgetsBinding.instance.addPostFrameCallback((_) {
+      if(_isNear != lastProxState){
+        lastProxState = _isNear;
+      if (!_isNear) {
+        if (!astate.value.alarmStarted) {
+          if (astate.value.timerStarted) {
+            astate.value = state(alarmStarted: true, timerStarted: false);
+          } else {
+            astate.value = state(timerStarted: false, alarmStarted: false);
+          }
+        }
+      } else {
+        astate.value = state(timerStarted: true, alarmStarted: false);
+        startTimer(widget.timeInSeconds, (){astate.value = state(timerStarted: false, alarmStarted: true);});
+      }
+    }});
     return Material(
         child: Align(
       alignment: Alignment.bottomRight,

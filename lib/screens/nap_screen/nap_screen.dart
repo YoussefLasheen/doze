@@ -15,7 +15,7 @@ import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 class NapScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _state = Provider.of<ValueNotifier<state>>(context);
+    final _state = context.select((ValueNotifier<state> s) => s.value.alarmStarted);
 
     Widget preferedMode() {
       final settings =
@@ -50,10 +50,10 @@ class NapScreen extends StatelessWidget {
       }
     }
 
-    if(!_state.value.alarmStarted){
+    if(!_state){
       stopRing();
     }
-    if (_state.value.alarmStarted == true) {
+    if (_state == true) {
       ring();
         return AlarmScreen();
 

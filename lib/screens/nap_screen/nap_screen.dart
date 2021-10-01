@@ -3,14 +3,13 @@ import 'dart:io';
 import 'package:doze/models/settings.dart';
 import 'package:doze/screens/nap_screen/modes/proximity_mode.dart';
 import 'package:doze/screens/nap_screen/modes/widgets/alarm_screen.dart';
+import 'package:flutter_incall_manager/flutter_incall_manager.dart';
 import 'modes/touch_mode.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screen/flutter_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/state.dart';
 
-import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 
 class NapScreen extends StatelessWidget {
   @override
@@ -65,22 +64,11 @@ class NapScreen extends StatelessWidget {
   }
 
   void ring() {
-    FlutterRingtonePlayer.play(
-      android: AndroidSounds.alarm,
-      ios: IosSounds.alarm,
-      looping: false,
-      volume: 1.0,
-      asAlarm: true,
-    );
-    Platform.isAndroid
-        ? FlutterScreen.resetBrightness()
-        : FlutterScreen.setBrightness(0.5);
+    IncallManager().startRingtone(RingtoneUriType.DEFAULT, '', 50);
+
   }
 
   void stopRing() {
-    FlutterRingtonePlayer.stop();
-    Platform.isAndroid
-        ? FlutterScreen.resetBrightness()
-        : FlutterScreen.setBrightness(0.5);
+    IncallManager().stopRingtone();
   }
 }

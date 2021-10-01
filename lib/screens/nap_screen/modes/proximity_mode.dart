@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart' as foundation;
 import 'package:provider/provider.dart';
 import 'dart:async';
 import 'package:proximity_sensor/proximity_sensor.dart';
-
+import 'package:flutter_incall_manager/flutter_incall_manager.dart';
 class ProximityIndicator extends StatefulWidget {
   final int timeInSeconds;
 
@@ -31,6 +31,7 @@ class _ProximityIndicatorState extends State<ProximityIndicator> {
     super.dispose();
     _streamSubscription.cancel();
     _timer.cancel();
+    IncallManager().turnScreenOn();
   }
 
   Future<void> listenSensor() async {
@@ -42,6 +43,7 @@ class _ProximityIndicatorState extends State<ProximityIndicator> {
     _streamSubscription = ProximitySensor.events.listen((int event) {
       setState(() {
         _isNear = (event > 0) ? true : false;
+        _isNear?IncallManager().turnScreenOff():null;
       });
     });
   }

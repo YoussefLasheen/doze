@@ -1,4 +1,4 @@
-package dev.yousseflasheen.doze
+package dev.lasheen.doze
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

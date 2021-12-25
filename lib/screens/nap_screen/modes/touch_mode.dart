@@ -62,50 +62,28 @@ class _TouchIndicatorState extends State<TouchIndicator> {
   }
 
   int noOfFingers = 0;
-
-  Timer _timer;
-
-  void startTimer(duration, function) {
-    int _start = duration;
-    _timer = new Timer.periodic(
-      const Duration(seconds: 1),
-      (Timer timer) {
-        if (_start == 0) {
-          timer.cancel();
-          function();
-        } else {
-          _start--;
-        }
-      },
-    );
-  }
-
   @override
   void dispose() {
-    _timer.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final astate = Provider.of<ValueNotifier<state>>(context);
+    final state = Provider.of<NapState>(context);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       bool twoFingers = touchPositions.values.length >= 2;
       if (noOfFingers != touchPositions.values.length) {
         noOfFingers = touchPositions.values.length;
         if (!twoFingers) {
-          if (!astate.value.alarmStarted) {
-            if (astate.value.timerStarted) {
-              astate.value = state(alarmStarted: true, timerStarted: false);
+          if (!(state.napState == NapStateEnum.alarmIsOn)) {
+            if (state.napState == NapStateEnum.napInProgress) {
+              state.switchStatus(NapStateEnum.alarmIsOn);
             } else {
-              astate.value = state(timerStarted: false, alarmStarted: false);
+              state.switchStatus(NapStateEnum.editingSettings);
             }
           }
         } else {
-          astate.value = state(timerStarted: true, alarmStarted: false);
-          startTimer(widget.timeInSeconds, () {
-            astate.value = state(timerStarted: false, alarmStarted: true);
-          });
+          state.startNap(widget.timeInSeconds);
         }
       }
     });

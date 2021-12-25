@@ -10,7 +10,7 @@ class AlarmScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _state = Provider.of<ValueNotifier<state>>(context);
+    final _state = Provider.of<NapState>(context);
     return Material(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -22,7 +22,7 @@ class AlarmScreen extends StatelessWidget {
           FlatButton(
               onPressed: () {
                 Navigator.pop(context);
-                _state.value = state(alarmStarted: false,timerStarted: false);
+                _state.switchStatus(NapStateEnum.editingSettings);
               },
               child: Text("DISMISS"))
         ],

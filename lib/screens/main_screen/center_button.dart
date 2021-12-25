@@ -63,13 +63,10 @@ class _CenterButtonState extends State<CenterButton> {
                       width: 100,
                       height: 100,
                       padding: const EdgeInsets.only(top: 5),
-                      decoration: BoxDecoration(
-                          color: Colors.transparent, shape: BoxShape.circle),
                       alignment: Alignment.topCenter,
-                      child: AnimatedContainer(
-                        duration: Duration(milliseconds: 100),
-                        width: updating ? 30 : 10,
-                        height: updating ? 30 : 10,
+                      child: Container(
+                        width: 10,
+                        height: 10,
                         decoration: BoxDecoration(
                             color: Colors.white, shape: BoxShape.circle),
                       ),
@@ -84,7 +81,7 @@ class _CenterButtonState extends State<CenterButton> {
                   ? CrossFadeState.showSecond
                   : CrossFadeState.showFirst,
               firstChild: Text(
-                'Start your nap',
+                'Start',
                 style: TextStyle(fontSize: 24),
               ),
               secondChild: Text(
@@ -96,8 +93,8 @@ class _CenterButtonState extends State<CenterButton> {
         );
       },
       openBuilder: (context, action) {
-        return ChangeNotifierProvider(
-            create: (_) => ValueNotifier<state>(state(alarmStarted: false,timerStarted: false)),
+        return ChangeNotifierProvider<NapState>(
+            create: (_) => NapState(),
             child: NapScreen());
       },
     );

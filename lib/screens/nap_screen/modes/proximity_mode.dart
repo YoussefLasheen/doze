@@ -30,8 +30,7 @@ class _ProximityIndicatorState extends State<ProximityIndicator> {
   void dispose() {
     super.dispose();
     _streamSubscription.cancel();
-    _timer.cancel();
-    IncallManager().turnScreenOn();
+   // IncallManager().turnScreenOn();
   }
 
   Future<void> listenSensor() async {
@@ -41,50 +40,31 @@ class _ProximityIndicatorState extends State<ProximityIndicator> {
       }
     };
     _streamSubscription = ProximitySensor.events.listen((int event) {
-      setState(() {
-        _isNear = (event > 0) ? true : false;
-        _isNear?IncallManager().turnScreenOff():null;
-      });
+        final bool _localValue = (event > 0) ? true : false;
+        if(_localValue != _isNear){
+          _isNear = _localValue;
+          setState(() {});
+        }
     });
   }
 
-   Timer _timer;
-  
-  void startTimer(duration, function) {
-    int _start = duration;
-    _timer = new Timer.periodic(
-      const Duration(seconds: 1),
-      (Timer timer) {
-        if (_start == 0) {
-            timer.cancel();
-            function();
-        } else {
-            _start--;
-        }
-      },
-    );
-  }
 
 
   @override
   Widget build(BuildContext context) {
-    final astate = Provider.of<ValueNotifier<state>>(context);
-   WidgetsBinding.instance.addPostFrameCallback((_) {
-      if(_isNear != lastProxState){
+    final state = Provider.of<NapState>(context);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_isNear != lastProxState) {
         lastProxState = _isNear;
-      if (!_isNear) {
-        if (!astate.value.alarmStarted) {
-          if (astate.value.timerStarted) {
-            astate.value = state(alarmStarted: true, timerStarted: false);
-          } else {
-            astate.value = state(timerStarted: false, alarmStarted: false);
-          }
+        if (!_isNear) {
+          bool napping = state.napState == NapStateEnum.napInProgress;
+          state.switchStatus(
+              napping ? NapStateEnum.alarmIsOn : NapStateEnum.napInProgress);
+        } else {
+          state.startNap(widget.timeInSeconds);
         }
-      } else {
-        astate.value = state(timerStarted: true, alarmStarted: false);
-        startTimer(widget.timeInSeconds, (){astate.value = state(timerStarted: false, alarmStarted: true);});
       }
-    }});
+    });
     return Material(
         child: Align(
       alignment: Alignment.bottomRight,

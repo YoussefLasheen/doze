@@ -14,7 +14,7 @@ import '../../models/state.dart';
 class NapScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _state = context.select((ValueNotifier<state> s) => s.value.alarmStarted);
+    final _state = Provider.of<NapState>(context);
 
     Widget preferedMode() {
       final settings =
@@ -49,10 +49,10 @@ class NapScreen extends StatelessWidget {
       }
     }
 
-    if(!_state){
+    if(!(_state.napState == NapStateEnum.alarmIsOn)){
       stopRing();
     }
-    if (_state == true) {
+    if (_state.napState == NapStateEnum.alarmIsOn) {
       ring();
         return AlarmScreen();
 

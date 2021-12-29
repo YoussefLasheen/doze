@@ -90,15 +90,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_incall_manager:
+  flutter_incall:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "3fe7b1239fd18086ea9dff25842300bdc436fdf1"
-      url: "https://github.com/jonataslaw/flutter-incall-manager.git"
-    source: git
-    version: "0.1.0"
+      name: flutter_incall
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:

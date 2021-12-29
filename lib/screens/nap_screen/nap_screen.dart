@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:doze/models/settings.dart';
 import 'package:doze/screens/nap_screen/modes/proximity_mode.dart';
 import 'package:doze/screens/nap_screen/modes/widgets/alarm_screen.dart';
-import 'package:flutter_incall_manager/flutter_incall_manager.dart';
+import 'package:flutter_incall/flutter_incall.dart';
 import 'modes/touch_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

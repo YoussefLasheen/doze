@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart' as foundation;
 import 'package:provider/provider.dart';
 import 'dart:async';
 import 'package:proximity_sensor/proximity_sensor.dart';
-import 'package:flutter_incall_manager/flutter_incall_manager.dart';
+import 'package:flutter_incall/flutter_incall.dart';
 class ProximityIndicator extends StatefulWidget {
   final int timeInSeconds;
 

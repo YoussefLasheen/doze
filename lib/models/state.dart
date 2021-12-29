@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_incall_manager/flutter_incall_manager.dart';
+import 'package:flutter_incall/flutter_incall.dart';
+
 
 enum NapStateEnum {
   editingSettings,

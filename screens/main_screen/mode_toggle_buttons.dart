@@ -53,7 +53,7 @@ class _ModeToggleButtonsState extends State<ModeToggleButtons> {
               onPressed: (int index) {
                 setState(
                   () {
-                    settings.value = Settings(mode:napModeEnum.values[index]);
+                    settings.value = Settings(mode:napModeEnum.values[index], timeInSec: 0);
                     for (int buttonIndex = 0;
                         buttonIndex < isSelected.length;
                         buttonIndex++) {

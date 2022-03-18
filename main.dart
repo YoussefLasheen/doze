@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
               Settings(mode: napModeEnum.Touch, timeInSec: 5)),
         ),
         ChangeNotifierProvider<NapState>(
-          create: (_) => NapState(),
+          create: (_) => NapState(napState: NapStateEnum.editingSettings),
         )
       ],
       child: MaterialApp(

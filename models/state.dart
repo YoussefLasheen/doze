@@ -57,7 +57,7 @@ class NapState extends ChangeNotifier{
 
   Future<void> listenSensor( time)async {
     bool _isNear = false;
-    bool lastProxState;
+    late bool lastProxState;
 
     IncallManager().enableProximitySensor(true);
 

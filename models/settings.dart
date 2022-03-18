@@ -4,5 +4,5 @@ class Settings {
   napModeEnum mode;
   int timeInSec;
 
-  Settings({this.mode, this.timeInSec});
+  Settings({required this.mode, required this.timeInSec});
 }

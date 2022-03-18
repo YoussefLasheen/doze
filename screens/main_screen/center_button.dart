@@ -13,16 +13,15 @@ class CenterButton extends StatefulWidget {
 class _CenterButtonState extends State<CenterButton> {
   bool updating = false;
 
-  double wheelSize;
+  double wheelSize = 200;
   double degree = 0;
-  double radius;
+  double radius = 0;
 
   int timeInSec = 0;
 
    @override
   void initState() {
     super.initState();
-    wheelSize = 200;
     radius = wheelSize / 2;
     degree = 0;
   }

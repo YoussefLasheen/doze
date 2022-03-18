@@ -20,13 +20,13 @@ class TouchIndicator extends StatefulWidget {
   final bool enabled;
 
   const TouchIndicator({
-    Key key,
-    @required this.child,
-    this.indicator,
-    this.indicatorSize,
+    Key? key,
+    required this.child,
+    required this.indicator,
+    required this.indicatorSize,
     this.indicatorColor = Colors.blueGrey,
     this.enabled = true,
-    this.timeInSeconds,
+    required this.timeInSeconds,
   }) : super(key: key);
 
   @override
@@ -70,7 +70,7 @@ class _TouchIndicatorState extends State<TouchIndicator> {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<NapState>(context);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       bool twoFingers = touchPositions.values.length >= 2;
       if (noOfFingers != touchPositions.values.length) {
         noOfFingers = touchPositions.values.length;

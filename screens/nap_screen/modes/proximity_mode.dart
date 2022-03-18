@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 class ProximityIndicator extends StatelessWidget {
   final int timeInSeconds;
 
-  const ProximityIndicator({Key key, this.timeInSeconds}) : super(key: key);
+  const ProximityIndicator({Key? key, required this.timeInSeconds}) : super(key: key);
  
   @override
   Widget build(BuildContext context) {
